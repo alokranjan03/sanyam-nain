@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Custom 10-question quiz website with a 30-second timer.">
+  <title>Quiz Master</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app-shell">
+    <section id="setupScreen" class="screen">
+      <div class="hero">
+        <div>
+          <p class="eyebrow">QUIZ MASTER</p>
+          <h1>Create Your Quiz</h1>
+          <p class="subtitle">Build a 10-question quiz, set the correct answers, and start playing.</p>
+        </div>
+        <div class="hero-badge">10 Questions · 30 Seconds Each</div>
+      </div>
+
+      <form id="quizSetupForm" novalidate>
+        <div class="card setup-topic">
+          <label for="quizTopic">Quiz Topic / Title <span>*</span></label>
+          <input id="quizTopic" type="text" maxlength="100" placeholder="e.g. Operating System" autocomplete="off">
+        </div>
+
+        <div id="setupError" class="alert error hidden" role="alert" aria-live="polite"></div>
+        <div id="questionEditor" class="question-editor"></div>
+
+        <div class="setup-actions">
+          <button type="submit" class="btn btn-primary btn-large">Start Quiz</button>
+          <button type="button" id="clearDraftBtn" class="btn btn-secondary btn-large">Clear Form</button>
+        </div>
+      </form>
+    </section>
+
+    <section id="quizScreen" class="screen hidden" aria-live="polite">
+      <header class="quiz-header card">
+        <div>
+          <p class="eyebrow">NOW PLAYING</p>
+          <h1 id="quizTitle">Quiz</h1>
+          <p id="questionCounter" class="counter">Question 1 of 10</p>
+        </div>
+        <div id="timerBox" class="timer-box" aria-label="Time remaining">
+          <span class="timer-label">TIME LEFT</span>
+          <strong id="timerValue">30</strong>
+          <span>seconds</span>
+        </div>
+      </header>
+
+      <div class="progress-area">
+        <div class="progress-meta">
+          <span id="progressText">Question 1 of 10</span>
+          <span id="progressPercent">10%</span>
+        </div>
+        <div class="progress-track" aria-hidden="true">
+          <div id="progressBar" class="progress-bar"></div>
+        </div>
+      </div>
+
+      <article class="card quiz-card">
+        <div class="question-number" id="questionNumberBadge">Q1</div>
+        <h2 id="questionText">Question text</h2>
+
+        <div id="answerOptions" class="answer-options" role="radiogroup" aria-label="Answer choices"></div>
+
+        <div id="feedback" class="feedback hidden" role="status" aria-live="polite"></div>
+
+        <div class="quiz-actions">
+          <button id="submitBtn" type="button" class="btn btn-primary">Submit Answer</button>
+          <button id="nextBtn" type="button" class="btn btn-secondary hidden">Next Question</button>
+          <button id="finishBtn" type="button" class="btn btn-success hidden">Finish Quiz</button>
+        </div>
+      </article>
+
+      <button id="leaveQuizBtn" type="button" class="link-button">Leave quiz &amp; create another</button>
+    </section>
+
+    <section id="resultScreen" class="screen hidden">
+      <div class="card result-card">
+        <div class="result-icon" aria-hidden="true">✓</div>
+        <p class="eyebrow">RESULT</p>
+        <h1>Quiz Completed!</h1>
+        <p id="resultTopic" class="subtitle"></p>
+
+        <div class="score-ring">
+          <strong id="scoreValue">0 / 10</strong>
+          <span id="percentageValue">0%</span>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat correct"><strong id="correctCount">0</strong><span>Correct</span></div>
+          <div class="stat wrong"><strong id="wrongCount">0</strong><span>Wrong</span></div>
+          <div class="stat unanswered"><strong id="unansweredCount">0</strong><span>Unanswered / Time Up</span></div>
+        </div>
+
+        <h2 class="summary-title">Question-wise Summary</h2>
+        <div id="resultSummary" class="result-summary"></div>
+
+        <div class="result-actions">
+          <button id="restartBtn" type="button" class="btn btn-primary btn-large">Restart Quiz</button>
+          <button id="newQuizBtn" type="button" class="btn btn-secondary btn-large">Create New Quiz</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="script.js"></script>
+</body>
+</html>
